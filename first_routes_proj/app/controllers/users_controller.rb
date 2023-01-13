@@ -1,7 +1,14 @@
 class UsersController < ApplicationController
     def index
-        users = User.all
-        render json: users
+        # users = User.where(username: params[:username])
+        # render json: users
+
+        # debugger
+        if params[:username]
+            render json: User.where(username: params[:username])
+        else
+            render json: users
+        end
     end
 
     def create 
@@ -38,8 +45,7 @@ class UsersController < ApplicationController
     
     private
     def user_params
-        params.require(:user).permit(:name, :email)
+        params.require(:user).permit(:username)
     end
 
-    
 end
